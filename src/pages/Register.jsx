@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -7,6 +7,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({
@@ -18,6 +19,7 @@ const Register = () => {
     e.preventDefault();
 
     localStorage.setItem("user", JSON.stringify(input));
+    navigate("/dashboard")
     console.log("user saved", input);
 
     setInput({
