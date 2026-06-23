@@ -15,19 +15,26 @@ const Register = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    localStorage.setItem("user", JSON.stringify(input));
-    navigate("/dashboard")
-    console.log("user saved", input);
+  const existingUsers =
+    JSON.parse(localStorage.getItem("users")) || [];
 
-    setInput({
-      username: "",
-      email: "",
-      password: "",
-    });
+  const newUser = {
+    username: input.username,
+    email: input.email,
+    password: input.password,
   };
+
+  existingUsers.push(newUser);
+
+  localStorage.setItem(
+    "users",
+    JSON.stringify(existingUsers)
+  );
+  navigate("/dashbaord")
+};
   return (
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-10 text-slate-900 sm:px-6 lg:px-8">
       <section className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-6xl items-center justify-center">
