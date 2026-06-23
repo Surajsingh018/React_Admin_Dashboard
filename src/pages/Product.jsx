@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getproducts } from "../services/api";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [title, setTitle] = useState("");
   const [edit, setEdit] = useState(null);
 
-  useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then((resp) => resp.json())
-      .then((data) => {
-        setProducts(data.products);
-      });
-  }, []);
+  useEffect(()=>{
+    const fetchproducts = async ()=>{
+      const data = await getproducts();
+      setProducts(data)
+    }
+    fetchproducts();
+  },[])
 
   const handleAddproducts = () => {
     const trimmedTitle = title.trim();
